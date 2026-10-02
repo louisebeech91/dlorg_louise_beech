@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
 
+watch_dir="/tmp/testdir"
 
-echo "Hello"
+inotifywait -m -e close_write -e moved_to --format "%f" "$watch_dir" | while
+read -r filename; do
+    echo "$filename" 
+    
+case "$ext" in
+    *.jpg|*.jpeg|*.png|*.webp)   dest="image_files" ;;
+    *.pptx|*.pdf|*.docx)         dest="document_files" ;;
+    *.xlsx|*.csv|*.json)         dest="data_files" ;; 
+    *.mp4|*.mp3|*.mov)           dest="media_files" ;; 
+    *.jpg|*.jpeg|*.png|*.bmp)    dest="image_files" ;;
+    *.doc|*.docx)                dest="document_files" ;;
+    *)                           dest="other_files" ;; 
+esac
+
+done
