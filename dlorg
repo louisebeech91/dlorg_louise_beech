@@ -1,29 +1,28 @@
 #!/usr/bin/env bash
 
-watch_dir="/tmp/testdir"
+WATCH_DIR="/tmp/testdir"
 
-inotifywait -m -e close_write -e moved_to --format "%f" "$watch_dir" | while
+inotifywait -m -e close_write -e moved_to --format "%f" "$WATCH_DIR" | while
 read -r filename; do
-    if [[ -f "$watch_dir/$filename" ]]; then   
-    echo "$filename"    
+    if [[ -f "$WATCH_DIR/$filename" ]]; then   
+        echo "$filename"    
 
-    ext="${filename##*.}"
-    ext="${ext,,}"
-    echo "$ext"
+        ext="${filename##*.}"
+        ext="${ext,,}"
 
-    case "$ext" in
-        jpg|jpeg|png|webp)      dest="image_files" ;;
-        pptx|pdf|docx)          dest="document_files" ;;
-        xlsx|csv|json)          dest="data_files" ;; 
-        mp4|mp3|mov)            dest="media_files" ;; 
-        txt)                    dest="txt_files" ;;
-        *)                      dest="other_files" ;; 
-    esac
+        case "$ext" in
+            jpg|jpeg|png|webp)      dest="image_files" ;;
+            pptx|pdf|docx)          dest="document_files" ;;
+            xlsx|csv|json)          dest="data_files" ;; 
+            mp4|mp3|mov)            dest="media_files" ;; 
+            txt)                    dest="txt_files" ;;
+            *)                      dest="other_files" ;; 
+        esac
 
-    mkdir -p "$watch_dir/$dest"
+        mkdir -p "$WATCH_DIR/$dest"
 
-    mv "$watch_dir/$filename" "$watch_dir/$dest/"
-    echo "$filename was moved into $dest"
+        mv "$WATCH_DIR/$filename" "$WATCH_DIR/$dest/"
+        echo "$filename was moved into $dest"
 
     fi  
 done
