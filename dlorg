@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-WATCH_DIR="/tmp/testdir"
+WATCH_DIR="$HOME/Downloads"
 
 inotifywait -m -e close_write -e moved_to --format "%f" "$WATCH_DIR" | while
 read -r filename; do
