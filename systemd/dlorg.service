@@ -1,0 +1,11 @@
+[Unit]
+Description="Sorting new files in Downloads into subfolders"
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=%h/Documents/github/dlorg_louise_beech/dlorg
+Restart=always
+
+[Install]
+WantedBy=default.target 
